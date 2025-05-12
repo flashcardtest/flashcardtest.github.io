@@ -36,27 +36,34 @@ document.addEventListener('DOMContentLoaded', function() {
     this.classList.toggle('flipped');
   });
   
-  // Previous button functionality
-  prevButton.addEventListener('click', function() {
-    if (currentIndex > 0) {
+ // Previous button functionality
+prevButton.addEventListener('click', function() {
+  if (currentIndex > 0) {
+    // Flip to front first to prevent showing back content
+    flashcard.classList.remove('flipped');
+    // Wait for flip animation to complete before changing content
+    setTimeout(() => {
       currentIndex--;
       updateFlashcard();
       updateProgressText();
-      // Reset to front face when changing cards
-      flashcard.classList.remove('flipped');
-    }
-  });
-  
-  // Next button functionality
-  nextButton.addEventListener('click', function() {
-    if (currentIndex < flashcards.length - 1) {
+    }, 300); // assuming 300ms flip animation
+  }
+});
+
+// Next button functionality
+nextButton.addEventListener('click', function() {
+  if (currentIndex < flashcards.length - 1) {
+    // Flip to front first to prevent showing back content
+    flashcard.classList.remove('flipped');
+    // Wait for flip animation to complete before changing content
+    setTimeout(() => {
       currentIndex++;
       updateFlashcard();
       updateProgressText();
-      // Reset to front face when changing cards
-      flashcard.classList.remove('flipped');
-    }
-  });
+    }, 300); // assuming 300ms flip animation
+  }
+});
+
   
   // Shuffle button functionality
   shuffleButton.addEventListener('click', function() {
