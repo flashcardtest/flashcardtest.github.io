@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
   let flashcards = [];
   
   // Determine which subject flashcards to load
-  if (pageTitle.includes('Physics')) {
+  if (pageTitle.includes('Physique')) {
     flashcards = physicsFlashcards;
-  } else if (pageTitle.includes('Chemistry')) {
+  } else if (pageTitle.includes('Chimie')) {
     flashcards = chemistryFlashcards;
-  } else if (pageTitle.includes('Biology')) {
+  } else if (pageTitle.includes('Biologie')) {
     flashcards = biologyFlashcards;
   }
   
