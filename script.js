@@ -36,35 +36,34 @@ document.addEventListener('DOMContentLoaded', function() {
     this.classList.toggle('flipped');
   });
   
- // Previous button functionality
-prevButton.addEventListener('click', function() {
-  if (currentIndex > 0) {
-    // Flip to front first to prevent showing back content
-    flashcard.classList.remove('flipped');
-    // Wait for flip animation to complete before changing content
-    setTimeout(() => {
-      currentIndex--;
-      updateFlashcard();
-      updateProgressText();
-    }, 300); // assuming 300ms flip animation
-  }
-});
+  // Previous button functionality
+  prevButton.addEventListener('click', function() {
+    if (currentIndex > 0) {
+      // Flip to front first to prevent showing back content
+      flashcard.classList.remove('flipped');
+      // Wait for flip animation to complete before changing content
+      setTimeout(() => {
+        currentIndex--;
+        updateFlashcard();
+        updateProgressText();
+      }, 300); // assuming 300ms flip animation
+    }
+  });
 
-// Next button functionality
-nextButton.addEventListener('click', function() {
-  if (currentIndex < flashcards.length - 1) {
-    // Flip to front first to prevent showing back content
-    flashcard.classList.remove('flipped');
-    // Wait for flip animation to complete before changing content
-    setTimeout(() => {
-      currentIndex++;
-      updateFlashcard();
-      updateProgressText();
-    }, 300); // assuming 300ms flip animation
-  }
-});
+  // Next button functionality
+  nextButton.addEventListener('click', function() {
+    if (currentIndex < flashcards.length - 1) {
+      // Flip to front first to prevent showing back content
+      flashcard.classList.remove('flipped');
+      // Wait for flip animation to complete before changing content
+      setTimeout(() => {
+        currentIndex++;
+        updateFlashcard();
+        updateProgressText();
+      }, 300); // assuming 300ms flip animation
+    }
+  });
 
-  
   // Shuffle button functionality
   shuffleButton.addEventListener('click', function() {
     shuffleArray(flashcards);
@@ -90,7 +89,7 @@ nextButton.addEventListener('click', function() {
   
   // Function to update progress text
   function updateProgressText() {
-    progressText.textContent = `Card ${currentIndex + 1} of ${flashcards.length}`;
+    progressText.textContent = `Carte ${currentIndex + 1} sur ${flashcards.length}`;
   }
   
   // Function to shuffle array (Fisher-Yates algorithm)
@@ -105,131 +104,131 @@ nextButton.addEventListener('click', function() {
 // Physics flashcards data (Grade 11 Ontario Curriculum)
 const physicsFlashcards = [
   {
-    question: "What is Newton's First Law of Motion?",
-    answer: "An object will remain at rest or in uniform motion in a straight line unless acted upon by an external force. Also known as the Law of Inertia."
+    question: "Quelle est la première loi de Newton ?",
+    answer: "Un objet reste au repos ou en mouvement uniforme en ligne droite à moins qu'une force externe ne s'exerce sur lui. Aussi connue sous le nom de Loi d'inertie."
   },
   {
-    question: "What is Newton's Second Law of Motion?",
-    answer: "The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. F = ma"
+    question: "Quelle est la deuxième loi de Newton ?",
+    answer: "L'accélération d'un objet est directement proportionnelle à la force nette qui agit sur lui et inversement proportionnelle à sa masse. F = ma"
   },
   {
-    question: "What is Newton's Third Law of Motion?",
-    answer: "For every action, there is an equal and opposite reaction. When one body exerts a force on a second body, the second body exerts a force equal in magnitude and opposite in direction on the first body."
+    question: "Quelle est la troisième loi de Newton ?",
+    answer: "Pour toute action, il existe une réaction égale et opposée. Lorsqu'un corps exerce une force sur un deuxième corps, ce dernier exerce une force égale en magnitude et opposée en direction sur le premier."
   },
   {
-    question: "What is the formula for kinetic energy?",
-    answer: "Kinetic Energy (KE) = ½mv², where m is mass and v is velocity."
+    question: "Quelle est la formule de l'énergie cinétique ?",
+    answer: "Énergie Cinétique (EC) = ½mv², où m est la masse et v est la vitesse."
   },
   {
-    question: "What is the formula for gravitational potential energy?",
-    answer: "Gravitational Potential Energy (PE) = mgh, where m is mass, g is acceleration due to gravity, and h is height."
+    question: "Quelle est la formule de l'énergie potentielle gravitationnelle ?",
+    answer: "Énergie Potentielle Gravitationnelle (EP) = mgh, où m est la masse, g est l'accélération due à la gravité, et h est la hauteur."
   },
   {
-    question: "What is the Law of Conservation of Energy?",
-    answer: "Energy cannot be created or destroyed, only transformed from one form to another. The total energy of an isolated system remains constant."
+    question: "Quelle est la loi de conservation de l'énergie ?",
+    answer: "L'énergie ne peut être ni créée ni détruite, mais seulement transformée d'une forme en une autre. L'énergie totale d'un système isolé reste constante."
   },
   {
-    question: "What is the definition of work in physics?",
-    answer: "Work is the transfer of energy that occurs when a force causes an object to move in the direction of the force. W = F × d × cosθ, where F is force, d is displacement, and θ is the angle between them."
+    question: "Qu'est-ce que le travail en physique ?",
+    answer: "Le travail est le transfert d'énergie qui se produit lorsque une force fait bouger un objet dans la direction de cette force. W = F × d × cosθ, où F est la force, d est le déplacement, et θ est l'angle entre eux."
   },
   {
-    question: "What is power in physics?",
-    answer: "Power is the rate at which work is done or energy is transferred. P = W/t, where W is work and t is time. The unit is watts (W)."
+    question: "Qu'est-ce que la puissance en physique ?",
+    answer: "La puissance est la vitesse à laquelle le travail est effectué ou l'énergie est transférée. P = W/t, où W est le travail et t est le temps. L'unité est le watt (W)."
   },
   {
-    question: "What is the difference between speed and velocity?",
-    answer: "Speed is a scalar quantity that refers to 'how fast' an object is moving. Velocity is a vector quantity that refers to 'how fast and in what direction' an object is moving."
+    question: "Quelle est la différence entre vitesse et vitesse ?",
+    answer: "La vitesse est une grandeur scalaire qui indique 'à quelle vitesse' un objet se déplace. La vitesse est une grandeur vectorielle qui indique 'à quelle vitesse et dans quelle direction' un objet se déplace."
   },
   {
-    question: "What is acceleration?",
-    answer: "Acceleration is the rate of change of velocity with respect to time. a = (v₂ - v₁)/t, where v₁ is initial velocity, v₂ is final velocity, and t is time."
+    question: "Qu'est-ce que l'accélération ?",
+    answer: "L'accélération est la variation de la vitesse par rapport au temps. a = (v₂ - v₁)/t, où v₁ est la vitesse initiale, v₂ est la vitesse finale, et t est le temps."
   }
 ];
 
 // Chemistry flashcards data (Grade 11 Ontario Curriculum)
 const chemistryFlashcards = [
   {
-    question: "What is an atom?",
-    answer: "An atom is the smallest unit of matter that retains the properties of an element. It consists of a nucleus (containing protons and neutrons) surrounded by electrons."
+    question: "Qu'est-ce qu'un atome ?",
+    answer: "Un atome est la plus petite unité de matière qui conserve les propriétés d'un élément. Il est composé d'un noyau (contenant protons et neutrons) entouré d'électrons."
   },
   {
-    question: "What is the difference between an ionic and covalent bond?",
-    answer: "Ionic bonds form when electrons are transferred from one atom to another, creating oppositely charged ions that attract. Covalent bonds form when atoms share electrons."
+    question: "Quelle est la différence entre une liaison ionique et covalente ?",
+    answer: "Les liaisons ioniques se forment lorsque des électrons sont transférés d'un atome à un autre, créant des ions de charges opposées qui s'attirent. Les liaisons covalentes se forment lorsque les atomes partagent des électrons."
   },
   {
-    question: "What is the mole concept?",
-    answer: "A mole is a unit of measurement equal to 6.022 × 10²³ (Avogadro's number) particles. It represents the amount of substance containing as many particles as there are atoms in 12 grams of carbon-12."
+    question: "Qu'est-ce que le concept de mole ?",
+    answer: "Une mole est une unité de mesure égale à 6,022 × 10²³ (nombre d'Avogadro) de particules. Elle représente la quantité de substance contenant autant de particules qu'il y a d'atomes dans 12 grammes de carbone-12."
   },
   {
-    question: "What is the periodic law?",
-    answer: "The properties of elements are periodic functions of their atomic numbers. Elements with similar properties occur at regular intervals when arranged by increasing atomic number."
+    question: "Quelle est la loi périodique ?",
+    answer: "Les propriétés des éléments sont des fonctions périodiques de leurs numéros atomiques. Les éléments ayant des propriétés similaires apparaissent à intervalles réguliers lorsqu'ils sont classés par numéro atomique croissant."
   },
   {
-    question: "What is an isotope?",
-    answer: "Isotopes are atoms of the same element with the same number of protons but different numbers of neutrons, resulting in different atomic masses."
+    question: "Qu'est-ce qu'un isotope ?",
+    answer: "Les isotopes sont des atomes du même élément qui ont le même nombre de protons mais un nombre différent de neutrons, ce qui entraîne une masse atomique différente."
   },
   {
-    question: "What is the pH scale?",
-    answer: "The pH scale measures how acidic or basic a substance is, ranging from 0 to 14. A pH less than 7 is acidic, a pH of 7 is neutral, and a pH greater than 7 is basic (alkaline)."
+    question: "Qu'est-ce que l'échelle pH ?",
+    answer: "L'échelle pH mesure à quel point une substance est acide ou basique, allant de 0 à 14. Un pH inférieur à 7 est acide, un pH de 7 est neutre, et un pH supérieur à 7 est basique (alcalin)."
   },
   {
-    question: "What is a chemical equation?",
-    answer: "A chemical equation is a symbolic representation of a chemical reaction using chemical formulas. It shows the reactants and products, and must be balanced to satisfy the law of conservation of mass."
+    question: "Qu'est-ce qu'une équation chimique ?",
+    answer: "Une équation chimique est une représentation symbolique d'une réaction chimique utilisant les formules chimiques. Elle montre les réactifs et les produits, et doit être équilibrée pour satisfaire la loi de conservation de la masse."
   },
   {
-    question: "What are the states of matter?",
-    answer: "The main states of matter are solid (definite shape and volume), liquid (indefinite shape but definite volume), gas (indefinite shape and volume), and plasma (ionized state of matter)."
+    question: "Quels sont les états de la matière ?",
+    answer: "Les principaux états de la matière sont solide (forme et volume définis), liquide (forme indéfinie mais volume défini), gazeux (forme et volume indéfinis), et plasma (état ionisé de la matière)."
   },
   {
-    question: "What is the difference between exothermic and endothermic reactions?",
-    answer: "Exothermic reactions release energy (heat) to the surroundings. Endothermic reactions absorb energy (heat) from the surroundings."
+    question: "Quelle est la différence entre les réactions exothermiques et endothermiques ?",
+    answer: "Les réactions exothermiques libèrent de l'énergie (chaleur) vers le milieu environnant. Les réactions endothermiques absorbent de l'énergie (chaleur) du milieu environnant."
   },
   {
-    question: "What is a catalyst?",
-    answer: "A catalyst is a substance that increases the rate of a chemical reaction without being consumed in the process. It works by providing an alternative pathway with lower activation energy."
+    question: "Qu'est-ce qu'un catalyseur ?",
+    answer: "Un catalyseur est une substance qui augmente la vitesse d'une réaction chimique sans être consommée au cours du processus. Il fonctionne en fournissant un chemin alternatif avec une énergie d'activation plus faible."
   }
 ];
 
 // Biology flashcards data (Grade 11 Ontario Curriculum)
 const biologyFlashcards = [
   {
-    question: "What is cellular respiration?",
-    answer: "Cellular respiration is the process by which cells convert glucose and oxygen into energy (ATP), carbon dioxide, and water. The overall equation is: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + ATP"
+    question: "Qu'est-ce que la respiration cellulaire ?",
+    answer: "La respiration cellulaire est le processus par lequel les cellules convertissent le glucose et l'oxygène en énergie (ATP), dioxyde de carbone et eau. L'équation globale est : C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + ATP"
   },
   {
-    question: "What is photosynthesis?",
-    answer: "Photosynthesis is the process by which plants, algae, and some bacteria convert light energy, carbon dioxide, and water into glucose and oxygen. The overall equation is: 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂"
+    question: "Qu'est-ce que la photosynthèse ?",
+    answer: "La photosynthèse est le processus par lequel les plantes, les algues et certaines bactéries convertissent l'énergie lumineuse, le dioxyde de carbone et l'eau en glucose et oxygène. L'équation globale est : 6CO₂ + 6H₂O + énergie lumineuse → C₆H₁₂O₆ + 6O₂"
   },
   {
-    question: "What is DNA?",
-    answer: "DNA (deoxyribonucleic acid) is a molecule that contains the genetic instructions for the development, functioning, and reproduction of all known living organisms. It consists of two strands forming a double helix structure."
+    question: "Qu'est-ce que l'ADN ?",
+    answer: "L'ADN (acide désoxyribonucléique) est une molécule qui contient les instructions génétiques pour le développement, le fonctionnement et la reproduction de tous les organismes vivants connus. Il se compose de deux brins formant une structure en double hélice."
   },
   {
-    question: "What is natural selection?",
-    answer: "Natural selection is the process by which species adapt to their environment. Individuals with favorable traits are more likely to survive and reproduce, passing these traits to the next generation, while unfavorable traits tend to be eliminated."
+    question: "Qu'est-ce que la sélection naturelle ?",
+    answer: "La sélection naturelle est le processus par lequel les espèces s'adaptent à leur environnement. Les individus possédant des caractères favorables ont plus de chances de survivre et de se reproduire, transmettant ces caractères à la génération suivante, tandis que les caractères défavorables tendent à disparaître."
   },
   {
-    question: "What is the difference between mitosis and meiosis?",
-    answer: "Mitosis is cell division that results in two identical daughter cells, each with the same number of chromosomes as the parent cell. Meiosis is cell division that results in four daughter cells, each with half the number of chromosomes as the parent cell (used in sexual reproduction)."
+    question: "Quelle est la différence entre la mitose et la méiose ?",
+    answer: "La mitose est une division cellulaire qui donne deux cellules filles identiques, chacune ayant le même nombre de chromosomes que la cellule parente. La méiose est une division cellulaire qui donne quatre cellules filles, chacune ayant la moitié du nombre de chromosomes que la cellule parente (utilisée dans la reproduction sexuée)."
   },
   {
-    question: "What is biodiversity?",
-    answer: "Biodiversity refers to the variety of life forms within an ecosystem, including the diversity of species, genetic diversity within species, and the diversity of ecosystems."
+    question: "Qu'est-ce que la biodiversité ?",
+    answer: "La biodiversité fait référence à la variété des formes de vie au sein d'un écosystème, incluant la diversité des espèces, la diversité génétique au sein des espèces, et la diversité des écosystèmes."
   },
   {
-    question: "What are the levels of biological organization?",
-    answer: "From smallest to largest: atom → molecule → organelle → cell → tissue → organ → organ system → organism → population → community → ecosystem → biome → biosphere."
+    question: "Quels sont les niveaux d'organisation biologique ?",
+    answer: "De plus petit à plus grand : atome → molécule → organite → cellule → tissu → organe → système d'organes → organisme → population → communauté → écosystème → biome → biosphère."
   },
   {
-    question: "What is homeostasis?",
-    answer: "Homeostasis is the maintenance of a stable internal environment despite changes in external conditions. Examples include temperature regulation, blood glucose levels, and pH balance."
+    question: "Qu'est-ce que l'homéostasie ?",
+    answer: "L'homéostasie est le maintien d'un environnement interne stable malgré les changements des conditions externes. Exemples incluent la régulation de la température, les niveaux de glucose sanguin et l'équilibre du pH."
   },
   {
-    question: "What is the difference between plant and animal cells?",
-    answer: "Plant cells have cell walls, chloroplasts, and a large central vacuole. Animal cells lack these structures but have centrioles. Both have cell membranes, cytoplasm, nucleus, mitochondria, and other organelles."
+    question: "Quelle est la différence entre les cellules végétales et animales ?",
+    answer: "Les cellules végétales ont des parois cellulaires, des chloroplastes et un grand vacuole central. Les cellules animales manquent ces structures mais ont des centrioles. Les deux ont membrane plasmique, cytoplasme, noyau, mitochondries et autres organites."
   },
   {
-    question: "What is the role of enzymes in biological systems?",
-    answer: "Enzymes are biological catalysts that speed up chemical reactions in living organisms without being consumed. They work by lowering the activation energy required for reactions to occur, and are specific to particular substrates."
+    question: "Quel est le rôle des enzymes dans les systèmes biologiques ?",
+    answer: "Les enzymes sont des catalyseurs biologiques qui accélèrent les réactions chimiques dans les organismes vivants sans être consommés. Ils fonctionnent en abaissant l'énergie d'activation nécessaire aux réactions pour qu'elles se produisent, et sont spécifiques à des substrats particuliers."
   }
 ];
