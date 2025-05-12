@@ -30,6 +30,7 @@ body {
 /* Container styles */
 .container,
 .container-home {
+  width: 90%;
   max-width: 650px;
   margin: auto;
   background: var(--container-background);
@@ -46,7 +47,6 @@ body {
 
 .container-home {
   max-width: 900px;
-  width: 100%;
 }
 
 /* Typography */
@@ -173,7 +173,8 @@ footer {
 
 .flashcard {
   width: 100%;
-  height: 300px;
+  aspect-ratio: 3/2;
+  max-height: 450px;
   perspective: 1000px;
   position: relative;
   margin-bottom: 20px;
@@ -240,7 +241,7 @@ footer {
 }
 
 .button:hover {
-  background-color: #415a2c;
+  background-color: #4a4a4a;
 }
 
 .subject-header {
@@ -273,6 +274,7 @@ footer {
 
   .container,
   .container-home {
+    width: 95%;
     padding: 25px;
     margin: 10px;
   }
@@ -285,16 +287,17 @@ footer {
     grid-template-columns: 1fr;
     max-width: 400px;
   }
-  
-  .flashcard {
-    height: 250px;
-  }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .nav-cards {
     grid-template-columns: repeat(2, 1fr);
     max-width: 600px;
+  }
+
+  .container,
+  .container-home {
+    width: 95%;
   }
 }
 
@@ -310,9 +313,5 @@ footer {
 
   h2 {
     font-size: 1.1em;
-  }
-  
-  .flashcard {
-    height: 200px;
   }
 }
