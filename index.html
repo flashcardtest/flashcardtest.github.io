@@ -1,19 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flashcards de Sciences - 11e année</title>
+    <style>
+      .typing-cursor {
+        opacity: 0;
+        animation: blink 0.7s infinite;
+      }
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+      .typing-cursor.visible {
+        opacity: 1;
+      }
+    </style>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="container-home">
       <header class="hero">
-        <h1><i>"flashcards"</i></h1>
+        <h1><i>"<span id="animated-name">flashcards</span>"</i><span class="typing-cursor">|</span></h1>
         <p>programme scolaire de 11e année</p>
       </header>
-
       <div class="nav-cards">
         <a href="physics.html" class="nav-card">
           <div
@@ -25,7 +36,6 @@
             <p>Forces, Énergie et Ondes</p>
           </div>
         </a>
-
         <a href="chemistry.html" class="nav-card">
           <div
             class="card-image"
@@ -36,7 +46,6 @@
             <p>Matière et Processus Chimiques</p>
           </div>
         </a>
-
         <a href="biology.html" class="nav-card">
           <div
             class="card-image"
@@ -49,6 +58,30 @@
         </a>
       </div>
     </main>
-    <script src="script.js"></script>
+    <script>
+      function typeWord() {
+        const element = document.getElementById('animated-name');
+        const cursor = document.querySelector('.typing-cursor');
+        const text = "flashcards";
+        element.textContent = ''; // Clear initial text
+        
+        let index = 0;
+        cursor.style.opacity = '1';
+        
+        function type() {
+          if (index < text.length) {
+            element.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, 100);
+          } else {
+            cursor.classList.add('visible');
+          }
+        }
+        
+        type();
+      }
+      
+      window.addEventListener('load', typeWord);
+    </script>
   </body>
 </html>
