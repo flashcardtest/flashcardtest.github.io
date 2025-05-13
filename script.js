@@ -4,8 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const flashcardContainer = document.querySelector('.flashcard-container');
   if (!flashcardContainer) return;
 
-  // Récupérer tous les éléments nécessaires
+  // Récupérer tous les éléments nécessaires (mise en cache des éléments DOM)
   const flashcard = document.querySelector('.flashcard');
+  const flashcardInner = document.querySelector('.flashcard-inner');
+  const frontContent = document.querySelector('.flashcard-front p');
+  const backContent = document.querySelector('.flashcard-back p');
   const prevButton = document.getElementById('prev-button');
   const nextButton = document.getElementById('next-button');
   const shuffleButton = document.getElementById('shuffle-button');
@@ -15,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const pageTitle = document.title;
   let currentIndex = 0;
   let flashcards = [];
+  let isAnimating = false; // Drapeau pour éviter les clics multiples pendant l'animation
   
   // Déterminer quelles cartes flash charger selon le sujet
   if (pageTitle.includes('Physique')) {
@@ -25,71 +29,129 @@ document.addEventListener('DOMContentLoaded', function() {
     flashcards = biologyFlashcards;
   }
   
+  // Précharger toutes les cartes flashs en mémoire
+  const preloadedFlashcards = flashcards.map(card => {
+    return {
+      question: card.question,
+      answer: card.answer
+    };
+  });
+  
   // Initialiser avec la première carte flash
-  if (flashcards.length > 0) {
+  if (preloadedFlashcards.length > 0) {
     updateFlashcard();
     updateProgressText();
   }
   
   // Ajouter un événement de clic pour retourner la carte flash
   flashcard.addEventListener('click', function() {
-    this.classList.toggle('flipped');
+    if (!isAnimating) {
+      this.classList.toggle('flipped');
+    }
   });
   
-  // Fonctionnalité du bouton Précédent
+  // Évènement de transition terminée
+  flashcardInner.addEventListener('transitionend', function() {
+    isAnimating = false;
+  });
+  
+  // Fonctionnalité du bouton Précédent - optimisée
   prevButton.addEventListener('click', function() {
-    if (currentIndex > 0) {
-      // Retourner au recto d'abord pour éviter d'afficher le contenu du verso
-      flashcard.classList.remove('flipped');
-      // Attendre la fin de l'animation avant de changer le contenu
-      setTimeout(() => {
+    if (currentIndex > 0 && !isAnimating) {
+      isAnimating = true;
+      
+      // Retourner au recto d'abord si nécessaire
+      if (flashcard.classList.contains('flipped')) {
+        flashcard.classList.remove('flipped');
+        
+        // Un court délai pour permettre à l'animation de retournement de commencer
+        setTimeout(() => {
+          currentIndex--;
+          updateFlashcard();
+          updateProgressText();
+        }, 50);
+      } else {
+        // Changement direct sans animation de retournement
         currentIndex--;
         updateFlashcard();
         updateProgressText();
-      }, 300); // animation de retournement supposée de 300ms
+        isAnimating = false;
+      }
     }
   });
 
-  // Fonctionnalité du bouton Suivant
+  // Fonctionnalité du bouton Suivant - optimisée
   nextButton.addEventListener('click', function() {
-    if (currentIndex < flashcards.length - 1) {
-      // Retourner au recto d'abord pour éviter d'afficher le contenu du verso
-      flashcard.classList.remove('flipped');
-      // Attendre la fin de l'animation avant de changer le contenu
-      setTimeout(() => {
+    if (currentIndex < preloadedFlashcards.length - 1 && !isAnimating) {
+      isAnimating = true;
+      
+      // Retourner au recto d'abord si nécessaire
+      if (flashcard.classList.contains('flipped')) {
+        flashcard.classList.remove('flipped');
+        
+        // Un court délai pour permettre à l'animation de retournement de commencer
+        setTimeout(() => {
+          currentIndex++;
+          updateFlashcard();
+          updateProgressText();
+        }, 50);
+      } else {
+        // Changement direct sans animation de retournement
         currentIndex++;
         updateFlashcard();
         updateProgressText();
-      }, 300); // animation de retournement supposée de 300ms
+        isAnimating = false;
+      }
     }
   });
 
-  // Fonctionnalité du bouton Mélanger
+  // Support navigation au clavier
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' && !nextButton.disabled && !isAnimating) {
+      nextButton.click();
+    } else if (e.key === 'ArrowLeft' && !prevButton.disabled && !isAnimating) {
+      prevButton.click();
+    } else if (e.key === ' ' || e.key === 'Enter') {
+      // Espace ou Entrée pour retourner la carte
+      flashcard.click();
+    }
+  });
+
+  // Fonctionnalité du bouton Mélanger - optimisée
   shuffleButton.addEventListener('click', function() {
-    shuffleArray(flashcards);
-    currentIndex = 0;
-    updateFlashcard();
-    updateProgressText();
-    // Réinitialiser au recto lors du mélange
-    flashcard.classList.remove('flipped');
+    if (!isAnimating) {
+      isAnimating = true;
+      
+      // Réinitialiser au recto lors du mélange
+      flashcard.classList.remove('flipped');
+      
+      // Un court délai pour permettre à l'animation de retournement de terminer
+      setTimeout(() => {
+        shuffleArray(preloadedFlashcards);
+        currentIndex = 0;
+        updateFlashcard();
+        updateProgressText();
+        isAnimating = false;
+      }, 50);
+    }
   });
   
-  // Fonction pour mettre à jour le contenu de la carte flash
+  // Fonction pour mettre à jour le contenu de la carte flash - optimisée
   function updateFlashcard() {
-    const frontContent = document.querySelector('.flashcard-front p');
-    const backContent = document.querySelector('.flashcard-back p');
+    const card = preloadedFlashcards[currentIndex];
     
-    frontContent.textContent = flashcards[currentIndex].question;
-    backContent.textContent = flashcards[currentIndex].answer;
+    // Utiliser textContent au lieu de innerHTML pour de meilleures performances
+    frontContent.textContent = card.question;
+    backContent.textContent = card.answer;
     
     // Activer/désactiver les boutons de navigation selon la position
     prevButton.disabled = currentIndex === 0;
-    nextButton.disabled = currentIndex === flashcards.length - 1;
+    nextButton.disabled = currentIndex === preloadedFlashcards.length - 1;
   }
   
   // Fonction pour mettre à jour le texte de progression
   function updateProgressText() {
-    progressText.textContent = `Carte ${currentIndex + 1} sur ${flashcards.length}`;
+    progressText.textContent = `Carte ${currentIndex + 1} sur ${preloadedFlashcards.length}`;
   }
   
   // Fonction pour mélanger le tableau (algorithme de Fisher-Yates)
