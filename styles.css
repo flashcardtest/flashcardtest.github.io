@@ -171,6 +171,7 @@ footer {
   position: relative;
 }
 
+/* Styles améliorés pour le conteneur des flashcards */
 .flashcard {
   width: 100%;
   aspect-ratio: 3/2;
@@ -194,33 +195,64 @@ footer {
   transform: rotateY(180deg);
 }
 
+/* Commentaire:
+ * Pour un flux de texte optimal dans les flashcards, nous maintenons
+ * un ratio d'aspect fixe afin que l'utilisateur puisse anticiper
+ * la taille des cartes. Cela maintient une cohérence visuelle
+ * même lorsque le contenu adapte sa taille.
+ */
+
+/* Styles de base pour les deux faces des cartes */
 .flashcard-front, .flashcard-back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   border-radius: var(--border-radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 20px;
   box-sizing: border-box;
+  overflow: hidden; /* Empêche le débordement initial */
 }
 
+/* Face avant - Question */
 .flashcard-front {
   background-color: #f8f9fa;
   color: var(--primary-color);
   font-size: 1.2em;
   box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Face arrière - Réponse */
 .flashcard-back {
   background-color: var(--primary-color);
   color: white;
   transform: rotateY(180deg);
-  font-size: 1.1em;
   line-height: 1.5;
-  overflow-y: auto;
+  overflow-y: auto; /* Permettre le défilement vertical si nécessaire */
+  padding: 30px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+/* Conteneur du texte de réponse */
+.flashcard-back p {
+  margin: 0;
+  width: 100%;
+  
+  /* Styles adaptatifs pour le texte avec des limites */
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem); /* min: 1rem, preferred: adaptatif, max: 1.2rem */
+  
+  /* Commentaire: 
+   * La fonction clamp() permet d'avoir une taille de police adaptative avec des limites strictes
+   * - Taille minimale: 1rem (16px) pour assurer une lisibilité minimale
+   * - Taille préférée: 0.9rem + 0.5vw qui s'adapte à la largeur de la fenêtre
+   * - Taille maximale: 1.2rem (19.2px) pour éviter un texte trop grand
+   * Cela offre une expérience fluide sans changements brusques de taille de police
+   */
 }
 
 .flashcard-buttons {
@@ -242,6 +274,11 @@ footer {
 
 .button:hover {
   background-color: #4a4a4a;
+}
+
+.button:disabled {
+  background-color: #9a9a9a;
+  cursor: not-allowed;
 }
 
 .subject-header {
@@ -266,7 +303,7 @@ footer {
   margin-bottom: 10px;
 }
 
-/* Responsive design */
+/* Améliorations pour différentes tailles d'écran */
 @media (max-width: 768px) {
   body {
     padding: 10px;
@@ -287,6 +324,16 @@ footer {
     grid-template-columns: 1fr;
     max-width: 400px;
   }
+  
+  .flashcard-back {
+    padding: 20px;
+  }
+  
+  /* Commentaire:
+   * Nous utilisons un padding réduit sur mobile,
+   * mais laissons la taille de police définie par clamp()
+   * gérer l'adaptation pour une transition plus douce.
+   */
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -299,6 +346,11 @@ footer {
   .container-home {
     width: 95%;
   }
+  
+  /* Commentaire:
+   * Utilisation du même padding qu'en desktop pour tablettes
+   * tout en conservant la taille de police adaptative.
+   */
 }
 
 @media (max-width: 480px) {
@@ -314,4 +366,14 @@ footer {
   h2 {
     font-size: 1.1em;
   }
+  
+  .flashcard-back {
+    padding: 15px;
+  }
+  
+  /* Commentaire:
+   * Sur les très petits écrans, nous réduisons encore le padding
+   * pour maximiser l'espace pour le texte. La taille de police
+   * est déjà adaptative et limitée par le clamp().
+   */
 }
