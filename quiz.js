@@ -134,6 +134,7 @@ function showQuestion() {
     questionElement.textContent = currentQuestion.question;
     answersElement.innerHTML = "";
     feedbackElement.textContent = "";
+    feedbackElement.className = "";
     questionNumberElement.textContent = currentQuestionIndex + 1;
     
     currentQuestion.answers.forEach((answer, index) => {
@@ -156,17 +157,19 @@ function selectAnswer(index) {
     buttons.forEach((btn, i) => {
         btn.disabled = true;
         if (i === currentQuestion.correct) {
-            btn.style.backgroundColor = "#28a745"; // Highlight correct answer
+            btn.classList.add("correct");
+        } else if (i === index) {
+            btn.classList.add("incorrect");
         }
     });
 
     if (index === currentQuestion.correct) {
-        feedbackElement.textContent = "Correct! +10 DDAK";
+        feedbackElement.innerHTML = `Correct! <span class="ddaak-badge">+10 DDAK</span>`;
         feedbackElement.className = "feedback-correct";
         ddaakPoints += 10;
         correctAnswers++;
     } else {
-        feedbackElement.textContent = `Incorrect! The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
+        feedbackElement.innerHTML = `Incorrect! <span class="ddaak-badge">0 DDAK</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
         feedbackElement.className = "feedback-incorrect";
         wrongAnswers++;
     }
@@ -191,14 +194,14 @@ function timeUp() {
     
     const currentQuestion = quizQuestions[currentQuestionIndex];
     
-    feedbackElement.textContent = `Time's up! The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
+    feedbackElement.innerHTML = `Time's up! <span class="ddaak-badge">0 DDAK</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
     feedbackElement.className = "feedback-incorrect";
     
     const buttons = document.querySelectorAll(".answer-btn");
     buttons.forEach((btn, i) => {
         btn.disabled = true;
         if (i === currentQuestion.correct) {
-            btn.style.backgroundColor = "#28a745"; // Highlight correct answer
+            btn.classList.add("correct");
         }
     });
     
@@ -220,7 +223,7 @@ function timeUp() {
 function startTimer() {
     timeLeft = 10;
     progressBar.style.width = "100%";
-    progressBar.style.backgroundColor = "green";
+    progressBar.className = "";
     
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
@@ -228,11 +231,11 @@ function startTimer() {
         progressBar.style.width = `${(timeLeft / 10) * 100}%`;
         
         if (timeLeft <= 5) {
-            progressBar.style.backgroundColor = "orange";
+            progressBar.className = "warning";
         }
         
         if (timeLeft <= 2) {
-            progressBar.style.backgroundColor = "red";
+            progressBar.className = "danger";
         }
         
         if (timeLeft <= 0) {
