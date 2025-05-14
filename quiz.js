@@ -561,7 +561,7 @@ let quizQuestions = [];
 let currentQuestionIndex = 0;
 let timerInterval;
 let timeLeft = 10; // 10 seconds per question
-let ddaakPoints = 0;
+let points = 0;
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let timedOutQuestions = 0;
@@ -623,11 +623,11 @@ function startQuiz() {
 
     // Reset quiz state
     currentQuestionIndex = 0;
-    ddaakPoints = 0;
+    points = 0;
     correctAnswers = 0;
     wrongAnswers = 0;
     timedOutQuestions = 0;
-    scoreElement.textContent = ddaakPoints;
+    scoreElement.textContent = points;
 
     // Update UI
     topicSelection.style.display = "none";
@@ -680,7 +680,7 @@ function selectAnswer(index) {
     if (index === currentQuestion.correct) {
         feedbackElement.innerHTML = `Correct! <span class="ddaak-badge">+10 DDAK</span>`;
         feedbackElement.className = "feedback-correct";
-        ddaakPoints += 10;
+        points += 10;
         correctAnswers++;
     } else {
         feedbackElement.innerHTML = `Incorrect! <span class="ddaak-badge">0 DDAK</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
@@ -688,7 +688,7 @@ function selectAnswer(index) {
         wrongAnswers++;
     }
 
-    scoreElement.textContent = ddaakPoints;
+    scoreElement.textContent = points;
 
     currentQuestionIndex++;
     if (currentQuestionIndex < quizQuestions.length) {
@@ -763,11 +763,11 @@ function showResults() {
     quizContainer.style.display = "none";
     resultsContainer.style.display = "block";
 
-    finalScoreElement.textContent = ddaakPoints;
+    finalScoreElement.textContent = points;
     possibleScoreElement.textContent = quizQuestions.length * 10;
 
     // Update statistics
-    document.getElementById("ddaak-points").textContent = ddaakPoints;
+    document.getElementById("ddaak-points").textContent = points;
     document.getElementById("correct-answers").textContent = correctAnswers;
     document.getElementById("total-questions").textContent = quizQuestions.length;
     document.getElementById("wrong-answers").textContent = wrongAnswers;
