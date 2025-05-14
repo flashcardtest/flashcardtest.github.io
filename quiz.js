@@ -763,7 +763,7 @@ function showResults() {
     quizContainer.style.display = "none";
     resultsContainer.style.display = "block";
 
-    finalScoreElement.textContent = ddaakPoints;
+    finalScoreElement.textContent = points;
     possibleScoreElement.textContent = quizQuestions.length * 10;
 
     // Update statistics
