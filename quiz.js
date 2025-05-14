@@ -678,12 +678,12 @@ function selectAnswer(index) {
     });
 
     if (index === currentQuestion.correct) {
-        feedbackElement.innerHTML = `Correct! <span class="ddaak-badge">+10 DDAK</span>`;
+        feedbackElement.innerHTML = `Correct! <span class="points-badge">+10 points</span>`;
         feedbackElement.className = "feedback-correct";
         points += 10;
         correctAnswers++;
     } else {
-        feedbackElement.innerHTML = `Incorrect! <span class="ddaak-badge">0 DDAK</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
+        feedbackElement.innerHTML = `Incorrect! <span class="points-badge">0 points</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
         feedbackElement.className = "feedback-incorrect";
         wrongAnswers++;
     }
@@ -708,7 +708,7 @@ function timeUp() {
 
     const currentQuestion = quizQuestions[currentQuestionIndex];
 
-    feedbackElement.innerHTML = `Time's up! <span class="ddaak-badge">0 DDAK</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
+    feedbackElement.innerHTML = `Time's up! <span class="points-badge">0 points</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
     feedbackElement.className = "feedback-incorrect";
 
     const buttons = document.querySelectorAll(".answer-btn");
@@ -763,11 +763,11 @@ function showResults() {
     quizContainer.style.display = "none";
     resultsContainer.style.display = "block";
 
-    finalScoreElement.textContent = points;
+    finalScoreElement.textContent = ddaakPoints;
     possibleScoreElement.textContent = quizQuestions.length * 10;
 
     // Update statistics
-    document.getElementById("ddaak-points").textContent = points;
+    document.getElementById("points").textContent = points;
     document.getElementById("correct-answers").textContent = correctAnswers;
     document.getElementById("total-questions").textContent = quizQuestions.length;
     document.getElementById("wrong-answers").textContent = wrongAnswers;
