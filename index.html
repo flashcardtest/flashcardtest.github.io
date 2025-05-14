@@ -25,38 +25,59 @@
         <h1><i>"<span id="animated-name">flashcards</span>"</i><span class="typing-cursor">|</span></h1>
         <p>programme scolaire de 11e année</p>
       </header>
-      <div class="nav-cards">
-        <a href="physics.html" class="nav-card">
-          <div
-            class="card-image"
-            style="background-image: url('https://ichef.bbci.co.uk/news/480/cpsprodpb/165F9/production/_122614619_hi003355733.jpg.webp');"
-          ></div>
-          <div class="card-content">
-            <h2>Physique</h2>
-            <p>Forces, Énergie et Ondes</p>
-          </div>
-        </a>
-        <a href="chemistry.html" class="nav-card">
-          <div
-            class="card-image"
-            style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRz0rZ3E-CJccsfEWqegiFpGuym5OsLse02Q&s');"
-          ></div>
-          <div class="card-content">
-            <h2>Chimie</h2>
-            <p>Matière et Processus Chimiques</p>
-          </div>
-        </a>
-        <a href="biology.html" class="nav-card">
-          <div
-            class="card-image"
-            style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvgIJfgfSzXASIuNxt8LEYqOsUdbFZex2qAA&s');"
-          ></div>
-          <div class="card-content">
-            <h2>Biologie</h2>
-            <p>Diversité et Évolution</p>
-          </div>
-        </a>
-      </div>
+      
+      <section class="science-subjects">
+        <h2 class="section-title">Matières scientifiques</h2>
+        <div class="nav-cards">
+          <a href="physics.html" class="nav-card">
+            <div
+              class="card-image"
+              style="background-image: url('https://ichef.bbci.co.uk/news/480/cpsprodpb/165F9/production/_122614619_hi003355733.jpg.webp');"
+            ></div>
+            <div class="card-content">
+              <h2>Physique</h2>
+              <p>Forces, Énergie et Ondes</p>
+            </div>
+          </a>
+          <a href="chemistry.html" class="nav-card">
+            <div
+              class="card-image"
+              style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRz0rZ3E-CJccsfEWqegiFpGuym5OsLse02Q&s');"
+            ></div>
+            <div class="card-content">
+              <h2>Chimie</h2>
+              <p>Matière et Processus Chimiques</p>
+            </div>
+          </a>
+          <a href="biology.html" class="nav-card">
+            <div
+              class="card-image"
+              style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvgIJfgfSzXASIuNxt8LEYqOsUdbFZex2qAA&s');"
+            ></div>
+            <div class="card-content">
+              <h2>Biologie</h2>
+              <p>Diversité et Évolution</p>
+            </div>
+          </a>
+        </div>
+      </section>
+      
+      <section class="game-section">
+        <h2 class="section-title">Défi de connaissances</h2>
+        <div class="game-card-container">
+          <a href="game.html" class="game-card">
+            <div
+              class="game-card-image"
+              style="background-image: url('https://media.istockphoto.com/id/155170343/photo/black-and-white-photo-of-bowman-lake.jpg?s=612x612&w=0&k=20&c=q51Jh9GuFs2x24aaPtYN9OOzFiTpq2TIkFyUcrGz4XU=');"
+            ></div>
+            <div class="game-card-content">
+              <h2>Mode Jeu</h2>
+              <p>Testez vos connaissances contre la montre</p>
+              <span class="game-tag">Nouveau</span>
+            </div>
+          </a>
+        </div>
+      </section>
     </main>
     <script>
       function typeWord() {
@@ -64,7 +85,7 @@
         const cursor = document.querySelector('.typing-cursor');
         const text = "flashcards";
         element.textContent = ''; // Clear initial text
-        
+
         let index = 0;
         cursor.style.opacity = '1';
         
