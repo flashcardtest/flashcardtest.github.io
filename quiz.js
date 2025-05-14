@@ -377,7 +377,7 @@ const topics = {
             correct: 2
         },
     ],
-    pphysics: [{
+    physics: [{
             question: "Quelle est l'unité de la résistance électrique ?",
             answers: ["Volt", "Ampère", "Ohm", "Watt"],
             correct: 2
