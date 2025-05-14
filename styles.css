@@ -1,3 +1,105 @@
+/* Game Section Styles */
+.science-subjects {
+  margin-bottom: 40px;
+}
+
+.game-section {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  font-size: 1.5em;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--link-hover-color);
+  margin: 10px auto 0;
+}
+
+.game-card-container {
+  display: flex;
+  justify-content: center;
+}
+
+.game-card {
+  background: var(--container-background);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-default);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.game-card-image {
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+}
+
+.game-card-content {
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.game-card-content h2 {
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1.4em;
+}
+
+.game-card-content p {
+  margin: 0;
+  color: var(--secondary-color);
+  font-size: 0.95em;
+}
+
+.game-tag {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background-color: var(--link-hover-color);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .game-card {
+    max-width: 100%;
+  }
+  
+  .section-title {
+    font-size: 1.3em;
+  }
+}
+
+
 /* Variables for theme consistency */
 :root {
   --primary-color: #2D2D2D;
