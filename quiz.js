@@ -1,4 +1,5 @@
 
+
 // Typing animation
 function typeWord() {
     const element = document.getElementById('animated-name');
@@ -556,17 +557,19 @@ const topics = {
     ],
 };
 
+
 let selectedTopics = [];
 let quizQuestions = [];
 let currentQuestionIndex = 0;
 let timerInterval;
-let timeLeft = 10; // 10 seconds per question
+let timeLeft = 10;
 let points = 0;
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let timedOutQuestions = 0;
 let answered = false;
 
+// DOM Elements
 const topicCards = document.querySelectorAll(".nav-card");
 const startQuizBtn = document.getElementById("start-quiz-btn");
 const quizContainer = document.getElementById("quiz-container");
@@ -574,6 +577,7 @@ const topicSelection = document.getElementById("topic-selection");
 const questionElement = document.getElementById("question");
 const answersElement = document.getElementById("answers");
 const feedbackElement = document.getElementById("feedback");
+const nextQuestionBtn = document.getElementById("next-question-btn");
 const progressBar = document.getElementById("progress-bar");
 const questionNumberElement = document.getElementById("question-number");
 const totalQuestionsElement = document.getElementById("total-questions");
@@ -582,43 +586,44 @@ const resultsContainer = document.getElementById("results-container");
 const finalScoreElement = document.getElementById("final-score");
 const possibleScoreElement = document.getElementById("possible-score");
 const restartBtn = document.getElementById("restart-btn");
+const pointsEarnedElement = document.getElementById("points-earned");
 
 // Topic selection logic
 topicCards.forEach(card => {
     card.addEventListener("click", () => {
+        card.classList.toggle("selected");
         const topic = card.getAttribute("data-topic");
-
-        if (card.classList.contains("selected")) {
-            // Deselect topic
-            card.classList.remove("selected");
-            selectedTopics = selectedTopics.filter(t => t !== topic);
-        } else {
-            // Select topic
-            card.classList.add("selected");
-            selectedTopics.push(topic);
-        }
-
-        // Enable or disable start button based on selection
+        
+        // Update selectedTopics array
+        selectedTopics = Array.from(document.querySelectorAll('.nav-card.selected'))
+            .map(selectedCard => selectedCard.getAttribute('data-topic'));
+        
         startQuizBtn.disabled = selectedTopics.length === 0;
     });
 });
 
 // Start quiz button
-startQuizBtn.addEventListener("click", startQuiz);
+startQuizBtn.addEventListener("click", () => {
+    if (selectedTopics.length > 0) {
+        startQuiz();
+    }
+});
 
 function startQuiz() {
     // Create quiz questions by combining selected topics
     quizQuestions = [];
     selectedTopics.forEach(topic => {
-        topics[topic].forEach(question => {
-            quizQuestions.push({
-                ...question,
-                topic: topic // Add topic information to track where question came from
-            });
-        });
+        if (topics[topic]) { // Check if topic exists
+            quizQuestions.push(...topics[topic].map(q => ({ ...q, topic })));
+        }
     });
 
-    // Shuffle questions for more variety
+    if (quizQuestions.length === 0) {
+        alert("Please select at least one topic with questions");
+        return;
+    }
+
+    // Shuffle questions
     shuffleArray(quizQuestions);
 
     // Reset quiz state
@@ -633,6 +638,9 @@ function startQuiz() {
     topicSelection.style.display = "none";
     quizContainer.style.display = "block";
     resultsContainer.style.display = "none";
+    nextQuestionBtn.style.display = "none";
+    feedbackElement.textContent = "";
+    feedbackElement.className = "";
 
     totalQuestionsElement.textContent = quizQuestions.length;
     questionNumberElement.textContent = currentQuestionIndex + 1;
@@ -649,6 +657,7 @@ function showQuestion() {
     answersElement.innerHTML = "";
     feedbackElement.textContent = "";
     feedbackElement.className = "";
+    nextQuestionBtn.style.display = "none";
     questionNumberElement.textContent = currentQuestionIndex + 1;
 
     currentQuestion.answers.forEach((answer, index) => {
@@ -659,6 +668,8 @@ function showQuestion() {
         answersElement.appendChild(button);
     });
 }
+
+// [Previous code remains the same until the selectAnswer function]
 
 function selectAnswer(index) {
     if (answered) return;
@@ -677,30 +688,33 @@ function selectAnswer(index) {
         }
     });
 
+    // Scroll to show feedback and next button
+    const quizContainer = document.getElementById("quiz-container");
+    quizContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
     if (index === currentQuestion.correct) {
         feedbackElement.innerHTML = `Correct! <span class="points-badge">+10 points</span>`;
         feedbackElement.className = "feedback-correct";
+        nextQuestionBtn.style.borderLeft = "none";
+        nextQuestionBtn.style.background = "linear-gradient(135deg, #e8f5e9, #c8e6c9)";
         points += 10;
         correctAnswers++;
     } else {
-        feedbackElement.innerHTML = `Incorrect! <span class="points-badge">0 points</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
+        feedbackElement.innerHTML = `
+            <div class="feedback-line">Incorrect! <span class="points-badge">0 points</span></div>
+            <div class="correct-answer">Correct answer: ${currentQuestion.answers[currentQuestion.correct]}</div>
+        `;
         feedbackElement.className = "feedback-incorrect";
+        nextQuestionBtn.style.borderLeft = "none";
+        nextQuestionBtn.style.background = "linear-gradient(135deg, #ffebee, #ffcdd2)";
         wrongAnswers++;
     }
 
     scoreElement.textContent = points;
-
-    currentQuestionIndex++;
-    if (currentQuestionIndex < quizQuestions.length) {
-        setTimeout(() => {
-            timeLeft = 10;
-            startTimer();
-            showQuestion();
-        }, 2000);
-    } else {
-        setTimeout(showResults, 2000);
-    }
+    nextQuestionBtn.style.display = "block";
 }
+
+// [Rest of the code remains the same]
 
 function timeUp() {
     if (answered) return;
@@ -708,8 +722,12 @@ function timeUp() {
 
     const currentQuestion = quizQuestions[currentQuestionIndex];
 
-    feedbackElement.innerHTML = `Time's up! <span class="points-badge">0 points</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
+    feedbackElement.innerHTML = `
+        <div class="feedback-line">Time's up! <span class="points-badge">0 points</span></div>
+        <div class="correct-answer">Correct answer: ${currentQuestion.answers[currentQuestion.correct]}</div>
+    `;
     feedbackElement.className = "feedback-incorrect";
+    nextQuestionBtn.className = "feedback-incorrect";
 
     const buttons = document.querySelectorAll(".answer-btn");
     buttons.forEach((btn, i) => {
@@ -721,17 +739,7 @@ function timeUp() {
 
     wrongAnswers++;
     timedOutQuestions++;
-
-    currentQuestionIndex++;
-    if (currentQuestionIndex < quizQuestions.length) {
-        setTimeout(() => {
-            timeLeft = 10;
-            startTimer();
-            showQuestion();
-        }, 2000);
-    } else {
-        setTimeout(showResults, 2000);
-    }
+    nextQuestionBtn.style.display = "block";
 }
 
 function startTimer() {
@@ -759,6 +767,17 @@ function startTimer() {
     }, 100);
 }
 
+function goToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < quizQuestions.length) {
+        timeLeft = 10;
+        showQuestion();
+        startTimer();
+    } else {
+        showResults();
+    }
+}
+
 function showResults() {
     quizContainer.style.display = "none";
     resultsContainer.style.display = "block";
@@ -767,7 +786,7 @@ function showResults() {
     possibleScoreElement.textContent = quizQuestions.length * 10;
 
     // Update statistics
-    document.getElementById("points").textContent = points;
+    pointsEarnedElement.textContent = points;
     document.getElementById("correct-answers").textContent = correctAnswers;
     document.getElementById("total-questions").textContent = quizQuestions.length;
     document.getElementById("wrong-answers").textContent = wrongAnswers;
@@ -778,8 +797,31 @@ function showResults() {
 
     document.getElementById("accuracy").textContent = accuracy;
     document.getElementById("avg-time").textContent = averageTimePerQuestion;
+
+    // Trigger confetti if accuracy is 90% or above
+    if (accuracy >= 90) {
+        // Start confetti from the top of the results container
+        const resultsTop = resultsContainer.getBoundingClientRect().top;
+        confetti.start(resultsTop);
+        
+        // Add celebratory message
+        const congrats = document.createElement('div');
+        congrats.innerHTML = '🎉 Excellent! 🎉';
+        congrats.style.cssText = `
+            font-size: 2em;
+            color: #4CAF50;
+            text-align: center;
+            margin: 20px 0;
+            animation: pulse 1s infinite;
+        `;
+        resultsContainer.insertBefore(congrats, resultsContainer.firstChild.nextSibling);
+    }
 }
 
+// Event listener for next question button
+nextQuestionBtn.addEventListener("click", goToNextQuestion);
+
+// Restart quiz button
 restartBtn.addEventListener("click", () => {
     resultsContainer.style.display = "none";
     topicSelection.style.display = "block";
@@ -800,3 +842,98 @@ function shuffleArray(array) {
     }
     return array;
 }
+
+// Confetti library (minified version)
+const confetti = {
+    maxCount: 150, // Particle count
+    speed: 2, // Particle speed
+    frameInterval: 15, // How often to update
+    alpha: 1.0, // Particle opacity
+    gradient: false, // Whether to use gradient colors
+    start: function(y) {
+        let particles = [];
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        let canvas = document.createElement('canvas');
+        let context = canvas.getContext('2d');
+        let time = 0;
+        let w = 0;
+        let h = 0;
+        
+        canvas.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:999999';
+        document.body.appendChild(canvas);
+        
+        function resize() {
+            w = canvas.width = width;
+            h = canvas.height = height;
+        }
+        
+        window.addEventListener('resize', resize);
+        resize();
+        
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+        
+        function range(map, func) {
+            let array = [];
+            for (let i = 0; i < map; i++) array.push(func(i));
+            return array;
+        }
+        
+        let colors = [
+            '#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5',
+            '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50',
+            '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800',
+            '#FF5722'
+        ];
+        
+        function createParticle() {
+            return {
+                x: random(0, w),
+                y: y || random(-h, 0),
+                r: random(4, 6),
+                d: random(3, 5),
+                c: colors[Math.floor(random(0, colors.length))],
+                tilt: random(-10, 10),
+                tiltAngle: random(0, 0.1),
+                tiltAngleIncrement: random(0.05, 0.1)
+            };
+        }
+        
+        particles = range(this.maxCount, createParticle);
+        
+        function step() {
+            time += 1;
+            context.clearRect(0, 0, w, h);
+            
+            particles.forEach((p, i) => {
+                p.y += p.d * this.speed;
+                p.tiltAngle += p.tiltAngleIncrement;
+                p.x += Math.sin(time * 0.05) * 1;
+                p.tilt = Math.sin(p.tiltAngle) * 15;
+                
+                if (p.y > h) {
+                    particles[i] = createParticle();
+                    particles[i].y = random(-100, 0);
+                    particles[i].x = random(0, w);
+                }
+                
+                context.beginPath();
+                context.lineWidth = p.r;
+                context.strokeStyle = p.c;
+                context.moveTo(p.x + p.tilt, p.y);
+                context.lineTo(p.x + p.tilt + p.r * 2, p.y);
+                context.stroke();
+            });
+            
+            if (time < 100) {
+                requestAnimationFrame(step.bind(this));
+            } else {
+                canvas.remove();
+            }
+        }
+        
+        step();
+    }
+};
