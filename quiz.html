@@ -7,17 +7,13 @@
     <link rel="stylesheet" href="quiz.css">
 </head>
 <body>
-
     <div class="container-home">
         <header class="hero">
             <h1><i>"<span id="animated-name">quiz</span>"</i><span class="typing-cursor">|</span></h1>
             <p>Testez vos connaissances scientifiques</p>
         </header>
-        
 
         <section id="topic-selection">
-                <a href="index.html" class="home-link">Retour à l'accueil</a>
-
             <h2 class="section-title">Choisissez une ou plusieurs matières</h2>
             <div class="nav-cards">
                 <div class="nav-card" data-topic="chemistry">
@@ -43,7 +39,6 @@
         </section>
 
         <section id="quiz-container" style="display: none;">
-          
             <div class="score-container">
                 <div class="question-counter">Question: <span id="question-number">1</span>/<span id="total-questions">0</span></div>
                 <div class="score-display">Points: <span id="score">0</span></div>
@@ -56,15 +51,18 @@
                 <!-- Answer buttons will be dynamically added -->
             </div>
             <div id="feedback"></div>
-             <div id="quiz-controls">
-      
+            <div id="next-question-btn" class="feedback-correct" style="display: none;">
+                Question Suivante
+            </div>
+        </section>
+
         <section id="results-container" style="display: none;">
             <h2 class="results-title">Quiz Terminé!</h2>
-            <div class="results-score">Votre score final: <span id="final-score">0</span> sur <span id="possible-score">0</span> Points</div>
+            <div class="results-score">Votre score final: <span id="final-score">0</span> sur <span id="possible-score">0</span> points</div>
             <div class="stats-container">
                 <h3>Vos Statistiques</h3>
                 <ul>
-                    <li>Points gagnés: <span id="points">0</span></li>
+                    <li>Points gagnés: <span id="points-earned">0</span></li>
                     <li>Réponses correctes: <span id="correct-answers">0</span>/<span id="total-questions">0</span></li>
                     <li>Précision: <span id="accuracy">0</span>%</li>
                     <li>Réponses incorrectes: <span id="wrong-answers">0</span></li>
@@ -72,7 +70,7 @@
                     <li>Temps moyen par question: <span id="avg-time">0</span>s</li>
                 </ul>
             </div>
-            <button id="restart-btn" class="restart-btn">Retourner</button>
+            <button id="restart-btn" class="restart-btn">Rejouer</button>
         </section>
     </div>
 
