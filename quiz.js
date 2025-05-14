@@ -677,12 +677,12 @@ function selectAnswer(index) {
     });
 
     if (index === currentQuestion.correct) {
-        feedbackElement.innerHTML = `Correct! <span class="ddaak-badge">+10 DDAK</span>`;
+        feedbackElement.innerHTML = `Correct! <span class="ddaak-badge">+10 points</span>`;
         feedbackElement.className = "feedback-correct";
         ddaakPoints += 10;
         correctAnswers++;
     } else {
-        feedbackElement.innerHTML = `Incorrect! <span class="ddaak-badge">0 DDAK</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
+        feedbackElement.innerHTML = `Incorrect! <span class="ddaak-badge">0 points</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
         feedbackElement.className = "feedback-incorrect";
         wrongAnswers++;
     }
@@ -707,7 +707,7 @@ function timeUp() {
 
     const currentQuestion = quizQuestions[currentQuestionIndex];
 
-    feedbackElement.innerHTML = `Time's up! <span class="ddaak-badge">0 DDAK</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
+    feedbackElement.innerHTML = `Time's up! <span class="ddaak-badge">0 points</span><br>The correct answer is: ${currentQuestion.answers[currentQuestion.correct]}`;
     feedbackElement.className = "feedback-incorrect";
 
     const buttons = document.querySelectorAll(".answer-btn");
