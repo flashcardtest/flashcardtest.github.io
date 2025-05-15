@@ -15,6 +15,8 @@
 
 /* Base styles */
 body {
+    transform: scale(0.95); /* Zoom out slightly */
+    transform-origin: top center; /* Keep the zoom centered vertically */
     font-family: var(--font-primary);
     background-color: var(--background-color);
     color: #2c3e50;
