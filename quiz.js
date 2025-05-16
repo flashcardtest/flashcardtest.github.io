@@ -766,7 +766,8 @@ function selectAnswer(index) {
     quizContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
 
     if (index === currentQuestion.correct) {
-        feedbackElement.innerHTML = `Correct! <span class="points-badge">+10 points</span>`;
+        feedbackElement.innerHTML = `
+        <div class="feedback-line">Correct! <span class="points-badge">+10 points</span></div>`;
         feedbackElement.className = "feedback-correct";
         nextQuestionBtn.style.borderLeft = "none";
         nextQuestionBtn.style.background = "linear-gradient(135deg, #e8f5e9, #c8e6c9)";
